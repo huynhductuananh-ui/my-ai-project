@@ -1,227 +1,493 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  
-  
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ScentPedia - Tra Cứu Nước Hoa Niche</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: #f8fafc; color: #1e293b; padding: 24px; min-height: 100vh; }
-    .header { text-align: center; margin-bottom: 32px; }
-    .header h1 { font-size: 2.2rem; font-weight: 800; color: #d97706; letter-spacing: 1px; margin-bottom: 8px; }
-    .header p { color: #64748b; font-size: 1rem; }
-    .stats-bar { display: flex; justify-content: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
-    .stat-badge { background: #ffffff; border: 1px solid #e2e8f0; padding: 8px 18px; border-radius: 999px; font-size: 0.9rem; color: #334155; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; max-width: 1280px; margin: 0 auto; }
-    .card { background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 24px -10px rgba(217, 119, 6, 0.2); border-color: #f59e0b; }
-    .img-box { width: 100%; height: 260px; background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 16px; border-bottom: 1px solid #f1f5f9; }
-    .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08)); }
-    .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-    .brand { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: #d97706; font-weight: 700; }
-    .name { font-size: 1.25rem; font-weight: 700; color: #0f172a; line-height: 1.3; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
-    .tag { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; background: #f1f5f9; color: #475569; font-weight: 500; }
-    .tag.gender { background: #e0f2fe; color: #0369a1; }
-    .tag.performance { background: #dcfce7; color: #15803d; }
-    .info-row { font-size: 0.88rem; color: #475569; line-height: 1.5; }
-    .info-row strong { color: #0f172a; }
-    .footer-desc { margin-top: auto; padding-top: 12px; border-top: 1px solid #f1f5f9; font-size: 0.82rem; color: #64748b; font-style: italic; }
-    .zalo-btn { display: block; text-align: center; background: #0068ff; color: #ffffff !important; padding: 11px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-top: 14px; transition: background 0.2s, transform 0.1s; }
-    .zalo-btn:hover { background: #0052cc; transform: scale(1.02); }
+    :root {
+      --ivory: #faf8f4;
+      --paper: #ffffff;
+      --ink: #1c1a17;
+      --muted: #7a746b;
+      --line: #e8e2d8;
+      --gold: #9c7c4f;
+      --gold-soft: #c9ad7f;
+      --serif: "Cormorant Garamond", "Times New Roman", serif;
+      --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header { text-align: center; padding: 88px 24px 56px; }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+    }
+    .divider {
+      width: 56px;
+      height: 1px;
+      background: var(--gold-soft);
+      margin: 28px auto;
+    }
+    .header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 64px;
+    }
+    .stat { text-align: center; }
+    .stat-value {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      color: var(--ink);
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 48px 32px;
+      padding-bottom: 96px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      border-color: var(--gold-soft);
+      box-shadow: 0 18px 40px -24px rgba(28, 26, 23, 0.25);
+    }
+
+    .img-box {
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(180deg, #f5f1ea 0%, #ece6db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .img-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.6s ease;
+    }
+    .card:hover .img-box img { transform: scale(1.03); }
+
+    .card-body {
+      padding: 28px 28px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .brand {
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .name {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .tag.gender { color: var(--ink); border-color: var(--ink); }
+
+    .info { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .info-row { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
+    .info-row strong {
+      color: var(--ink);
+      font-weight: 500;
+      display: inline-block;
+      min-width: 88px;
+    }
+
+    .footer-desc {
+      margin-top: auto;
+      padding-top: 14px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .btn-zalo {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      padding: 13px 14px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .btn-zalo:hover { background: var(--ink); color: var(--ivory); }
+    .btn-zalo:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      text-align: center;
+      padding: 40px 24px 56px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer .hotline {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    /* Floating Zalo */
+    .float-zalo {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: var(--ink);
+      color: var(--ivory);
+      text-decoration: none;
+      padding: 14px 20px;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 28px -12px rgba(28, 26, 23, 0.5);
+      z-index: 10;
+    }
+    .float-zalo:hover { background: var(--gold); }
+    .float-zalo:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    @media (max-width: 640px) {
+      .header { padding: 64px 20px 40px; }
+      .stats { gap: 24px; }
+      .grid { gap: 36px; }
+      .card-body { padding: 24px 22px 26px; }
+      .float-zalo { right: 16px; bottom: 16px; padding: 12px 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>SCENTPEDIA NICHE</h1>
+
+  <header class="header">
+    <p class="eyebrow">Niche Fragrance Showroom</p>
+    <h1>ScentPedia</h1>
+    <div class="divider"></div>
     <p>Kho dữ liệu chuẩn hóa 10 chai nước hoa Niche cao cấp</p>
-  </div>
-  <div class="stats-bar">
-    <div class="stat-badge">📊 Tổng số: <strong>10 chai</strong></div>
-    <div class="stat-badge">🖼️ Hình ảnh: <strong>100% Direct Links</strong></div>
-    <div class="stat-badge">⚡ Nền tảng: <strong>GitHub Pages Ready</strong></div>
-  </div>
-  <div class="grid">
-    <!-- Chai 1 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/fJ38dQsN/z8424652218761-7ea107df0affbc468b6709fa12886377.jpg" alt="Aventus"></div>
-      <div class="card-body">
-        <div class="brand">Creed</div>
-        <div class="name">Aventus</div>
-        <div class="tags">
-          <span class="tag gender">Nam</span>
-          <span class="tag">Chypre Fruity</span>
-          <span class="tag performance">7 - 12h</span>
-        </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Dứa nướng, Bạch dương, Xạ hương, Lý chua đen</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả xa (1 sải tay)</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Đi làm, Gặp đối tác, Sự kiện sang trọng</div>
-        <div class="footer-desc">Phong cách: Thành đạt, Nam tính, Quyền lực</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
+  </header>
+
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">10</div>
+        <div class="stat-label">Chai nước hoa</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Direct Links</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">Niche</div>
+        <div class="stat-label">Chính hãng</div>
       </div>
     </div>
-    <!-- Chai 2 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/7fCKzr4q/z8424652287625-535bd7a0363102c040abfc9358d0b0d1.jpg" alt="Santal 33"></div>
-      <div class="card-body">
-        <div class="brand">Le Labo</div>
-        <div class="name">Santal 33</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Woody Aromatic</span>
-          <span class="tag performance">8 - 12h</span>
+
+    <main class="grid">
+
+      <!-- Chai 1 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/fJ38dQsN/z8424652218761-7ea107df0affbc468b6709fa12886377.jpg" alt="Creed Aventus"></div>
+        <div class="card-body">
+          <div class="brand">Creed</div>
+          <h2 class="name">Aventus</h2>
+          <div class="tags">
+            <span class="tag gender">Nam</span>
+            <span class="tag">Chypre Fruity</span>
+            <span class="tag">7 - 12h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Dứa nướng, Bạch dương, Xạ hương, Lý chua đen</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả xa (1 sải tay)</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Đi làm, Gặp đối tác, Sự kiện sang trọng</div>
+          </div>
+          <div class="footer-desc">Thành đạt, Nam tính, Quyền lực</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Gỗ đàn hương, Giấy cói, Da thuộc, Tuyết tùng</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả gần (nửa sải tay)</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Cà phê, Dạo phố, Môi trường nghệ thuật</div>
-        <div class="footer-desc">Phong cách: Cá tính, Mộc mạc, Tinh tế</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 3 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/34SZynbh/z8424652218762-c356f5e51fcbbd574f68b765103d68f1.jpg" alt="Baccarat Rouge 540"></div>
-      <div class="card-body">
-        <div class="brand">Maison Francis Kurkdjian</div>
-        <div class="name">Baccarat Rouge 540 Extrait</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Amber Floral</span>
-          <span class="tag performance">> 12h</span>
+      </article>
+
+      <!-- Chai 2 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/7fCKzr4q/z8424652287625-535bd7a0363102c040abfc9358d0b0d1.jpg" alt="Le Labo Santal 33"></div>
+        <div class="card-body">
+          <div class="brand">Le Labo</div>
+          <h2 class="name">Santal 33</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Woody Aromatic</span>
+            <span class="tag">8 - 12h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Gỗ đàn hương, Giấy cói, Da thuộc, Tuyết tùng</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả gần (nửa sải tay)</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Cà phê, Dạo phố, Môi trường nghệ thuật</div>
+          </div>
+          <div class="footer-desc">Cá tính, Mộc mạc, Tinh tế</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Hạnh nhân đắng, Nhụy hoa nghệ tây, Long diên hương</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả rất xa</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Dạ tiệc, Hẹn hò mùa lạnh, Không gian VIP</div>
-        <div class="footer-desc">Phong cách: Quyến rũ, Đẳng cấp, Ngọt ngào</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 4 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/47L1KBFZ/z8424652218763-7f8cbce120667fc36b798df7d1a85800.jpg" alt="Angels' Share"></div>
-      <div class="card-body">
-        <div class="brand">Kilian</div>
-        <div class="name">Angels' Share</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Amber Vanilla</span>
-          <span class="tag performance">8 - 10h</span>
+      </article>
+
+      <!-- Chai 3 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/34SZynbh/z8424652218762-c356f5e51fcbbd574f68b765103d68f1.jpg" alt="Maison Francis Kurkdjian Baccarat Rouge 540"></div>
+        <div class="card-body">
+          <div class="brand">Maison Francis Kurkdjian</div>
+          <h2 class="name">Baccarat Rouge 540 Extrait</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Amber Floral</span>
+            <span class="tag">&gt; 12h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Hạnh nhân đắng, Nhụy hoa nghệ tây, Long diên hương</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả rất xa</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Dạ tiệc, Hẹn hò mùa lạnh, Không gian VIP</div>
+          </div>
+          <div class="footer-desc">Quyến rũ, Đẳng cấp, Ngọt ngào</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Rượu Cognac, Quế, Đậu Tonka, Gỗ sồi, Vanilla</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả vừa (1 cánh tay)</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Bar, Hẹn hò lãng mạn, Tiệc tối mùa đông</div>
-        <div class="footer-desc">Phong cách: Ấm áp, Say đắm, Thượng lưu</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 5 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/phGB9q12/z8424652446498-2aaa869f2dd6c47154b4bb1f5d9b8a02.jpg" alt="Oud Wood"></div>
-      <div class="card-body">
-        <div class="brand">Tom Ford</div>
-        <div class="name">Oud Wood</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Woody Spicy</span>
-          <span class="tag performance">6 - 8h</span>
+      </article>
+
+      <!-- Chai 4 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/47L1KBFZ/z8424652218763-7f8cbce120667fc36b798df7d1a85800.jpg" alt="Kilian Angels' Share"></div>
+        <div class="card-body">
+          <div class="brand">Kilian</div>
+          <h2 class="name">Angels' Share</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Amber Vanilla</span>
+            <span class="tag">8 - 10h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Rượu Cognac, Quế, Đậu Tonka, Gỗ sồi, Vanilla</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả vừa (1 cánh tay)</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Bar, Hẹn hò lãng mạn, Tiệc tối mùa đông</div>
+          </div>
+          <div class="footer-desc">Ấm áp, Say đắm, Thượng lưu</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Trầm hương, Gỗ cẩm lai, Bạch đậu khấu, Hổ phách</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả thoang thoảng gần người</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Văn phòng cao cấp, Gặp đối tác, Tối lịch sự</div>
-        <div class="footer-desc">Phong cách: Trầm tĩnh, Điềm đạm, Bí ẩn</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 6 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/Q94qB0n8/z8424652529022-b3b941546cbc5a72449530a64fefee99.jpg" alt="Jazz Club"></div>
-      <div class="card-body">
-        <div class="brand">Maison Margiela</div>
-        <div class="name">Jazz Club</div>
-        <div class="tags">
-          <span class="tag gender">Nam</span>
-          <span class="tag">Leather</span>
-          <span class="tag performance">7 - 9h</span>
+      </article>
+
+      <!-- Chai 5 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/phGB9q12/z8424652446498-2aaa869f2dd6c47154b4bb1f5d9b8a02.jpg" alt="Tom Ford Oud Wood"></div>
+        <div class="card-body">
+          <div class="brand">Tom Ford</div>
+          <h2 class="name">Oud Wood</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Woody Spicy</span>
+            <span class="tag">6 - 8h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Trầm hương, Gỗ cẩm lai, Bạch đậu khấu, Hổ phách</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả thoang thoảng gần người</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Văn phòng cao cấp, Gặp đối tác, Tối lịch sự</div>
+          </div>
+          <div class="footer-desc">Trầm tĩnh, Điềm đạm, Bí ẩn</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Thuốc lá, Rượu Rum, Vanilla, Da thuộc, Tiêu hồng</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả vừa phải</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Lounge, Quán bar acoustic, Đi chơi tối mát mẻ</div>
-        <div class="footer-desc">Phong cách: Lãng tử, Hoài niệm, Ấm cúng</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 7 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/sQ6JBw0D/z8424652602924-a79f0e90f139b2a597429abca3066e77.jpg" alt="Tam Dao EDP"></div>
-      <div class="card-body">
-        <div class="brand">Diptyque</div>
-        <div class="name">Tam Dao EDP</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Woody Floral Musk</span>
-          <span class="tag performance">6 - 8h</span>
+      </article>
+
+      <!-- Chai 6 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/Q94qB0n8/z8424652529022-b3b941546cbc5a72449530a64fefee99.jpg" alt="Maison Margiela Jazz Club"></div>
+        <div class="card-body">
+          <div class="brand">Maison Margiela</div>
+          <h2 class="name">Jazz Club</h2>
+          <div class="tags">
+            <span class="tag gender">Nam</span>
+            <span class="tag">Leather</span>
+            <span class="tag">7 - 9h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Thuốc lá, Rượu Rum, Vanilla, Da thuộc, Tiêu hồng</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả vừa phải</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Lounge, Quán bar acoustic, Đi chơi tối mát mẻ</div>
+          </div>
+          <div class="footer-desc">Lãng tử, Hoài niệm, Ấm cúng</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Gỗ đàn hương Goa, Tuyết tùng, Cây bách, Gỗ cẩm lai</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả nhẹ gần người</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Thiền định, Đọc sách, Đi làm hàng ngày</div>
-        <div class="footer-desc">Phong cách: Thanh tịnh, An nhiên, Thuần mộc</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 8 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/LYCVqN04/z8424652656079-dbd5a882e961d8d5c28259e84bda5017.jpg" alt="Gypsy Water"></div>
-      <div class="card-body">
-        <div class="brand">Byredo</div>
-        <div class="name">Gypsy Water</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Woody Aromatic</span>
-          <span class="tag performance">5 - 7h</span>
+      </article>
+
+      <!-- Chai 7 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/sQ6JBw0D/z8424652602924-a79f0e90f139b2a597429abca3066e77.jpg" alt="Diptyque Tam Dao EDP"></div>
+        <div class="card-body">
+          <div class="brand">Diptyque</div>
+          <h2 class="name">Tam Dao EDP</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Woody Floral Musk</span>
+            <span class="tag">6 - 8h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Gỗ đàn hương Goa, Tuyết tùng, Cây bách, Gỗ cẩm lai</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả nhẹ gần người</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Thiền định, Đọc sách, Đi làm hàng ngày</div>
+          </div>
+          <div class="footer-desc">Thanh tịnh, An nhiên, Thuần mộc</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Cây bách xù, Chanh vàng, Hổ phách, Vanilla, Gỗ thông</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả thoang thoảng</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Dã ngoại, Mùa xuân hè, Casual tối giản</div>
-        <div class="footer-desc">Phong cách: Tự do, Phóng khoáng, Trong trẻo</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 9 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/vgqv13SZ/z8424652689146-a9f23056c129caf4078c06ea76e4a2e2.jpg" alt="Musc Ravageur"></div>
-      <div class="card-body">
-        <div class="brand">Frederic Malle</div>
-        <div class="name">Musc Ravageur</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Amber</span>
-          <span class="tag performance">10 - 12h</span>
+      </article>
+
+      <!-- Chai 8 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/LYCVqN04/z8424652656079-dbd5a882e961d8d5c28259e84bda5017.jpg" alt="Byredo Gypsy Water"></div>
+        <div class="card-body">
+          <div class="brand">Byredo</div>
+          <h2 class="name">Gypsy Water</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Woody Aromatic</span>
+            <span class="tag">5 - 7h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Cây bách xù, Chanh vàng, Hổ phách, Vanilla, Gỗ thông</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả thoang thoảng</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Dã ngoại, Mùa xuân hè, Casual tối giản</div>
+          </div>
+          <div class="footer-desc">Tự do, Phóng khoáng, Trong trẻo</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Xạ hương gợi cảm, Vanilla, Quế, Đinh hương, Tonka</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả xa ấm áp</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Hẹn hò riêng tư mùa đông, Tiệc tối sang trọng</div>
-        <div class="footer-desc">Phong cách: Xác thịt, Quyến rũ, Hoang dại</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-    <!-- Chai 10 -->
-    <div class="card">
-      <div class="img-box"><img src="https://i.postimg.cc/8JKbFtn5/z8424652741069-b1769a38be7f27fbb2b5464427b9bbbe.jpg" alt="Naxos"></div>
-      <div class="card-body">
-        <div class="brand">Xerjoff</div>
-        <div class="name">Naxos</div>
-        <div class="tags">
-          <span class="tag gender">Unisex</span>
-          <span class="tag">Aromatic Spicy</span>
-          <span class="tag performance">10 - 14h</span>
+      </article>
+
+      <!-- Chai 9 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/vgqv13SZ/z8424652689146-a9f23056c129caf4078c06ea76e4a2e2.jpg" alt="Frederic Malle Musc Ravageur"></div>
+        <div class="card-body">
+          <div class="brand">Frederic Malle</div>
+          <h2 class="name">Musc Ravageur</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Amber</span>
+            <span class="tag">10 - 12h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Xạ hương gợi cảm, Vanilla, Quế, Đinh hương, Tonka</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả xa ấm áp</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Hẹn hò riêng tư mùa đông, Tiệc tối sang trọng</div>
+          </div>
+          <div class="footer-desc">Xác thịt, Quyến rũ, Hoang dại</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
         </div>
-        <div class="info-row"><strong>Nốt hương:</strong> Mật ong, Lá thuốc lá, Hoa oải hương, Bergamot, Vanilla</div>
-        <div class="info-row"><strong>Tỏa hương:</strong> Toả xa ấn tượng</div>
-        <div class="info-row"><strong>Hoàn cảnh:</strong> Sự kiện lớn, Gặp đối tác VIP, Mùa thu đông</div>
-        <div class="footer-desc">Phong cách: Vương giả, Đượm nồng, Sang trọng</div>
-        <a href="https://zalo.me/0567173012" target="_blank" class="zalo-btn">💬 Nhắn Zalo tư vấn</a>
-      </div>
-    </div>
-  </div>
+      </article>
+
+      <!-- Chai 10 -->
+      <article class="card">
+        <div class="img-box"><img loading="lazy" src="https://i.postimg.cc/8JKbFtn5/z8424652741069-b1769a38be7f27fbb2b5464427b9bbbe.jpg" alt="Xerjoff Naxos"></div>
+        <div class="card-body">
+          <div class="brand">Xerjoff</div>
+          <h2 class="name">Naxos</h2>
+          <div class="tags">
+            <span class="tag gender">Unisex</span>
+            <span class="tag">Aromatic Spicy</span>
+            <span class="tag">10 - 14h</span>
+          </div>
+          <div class="info">
+            <div class="info-row"><strong>Nốt hương</strong> Mật ong, Lá thuốc lá, Hoa oải hương, Bergamot, Vanilla</div>
+            <div class="info-row"><strong>Tỏa hương</strong> Toả xa ấn tượng</div>
+            <div class="info-row"><strong>Hoàn cảnh</strong> Sự kiện lớn, Gặp đối tác VIP, Mùa thu đông</div>
+          </div>
+          <div class="footer-desc">Vương giả, Đượm nồng, Sang trọng</div>
+          <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="btn-zalo">Nhắn Zalo tư vấn</a>
+        </div>
+      </article>
+
+    </main>
+  </section>
+
+  <footer>
+    <div class="hotline">Zalo tư vấn: 0567 173 012</div>
+    <p>ScentPedia Niche &middot; Kho tra cứu nước hoa cao cấp</p>
+  </footer>
+
+  <a href="https://zalo.me/0567173012" target="_blank" rel="noopener" class="float-zalo" aria-label="Nhắn Zalo tư vấn 0567173012">Zalo tư vấn</a>
+
 </body>
 </html>
