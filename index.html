@@ -6,7 +6,7 @@
   <title>ScentPedia - Tra Cứu Nước Hoa Niche</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: #f8fafc; color:  #0f172a; padding: 24px; min-height: 100vh; }
+    body { background-color: #f8fafc; color: #0f172a;  padding: 24px; min-height: 100vh; }
     .header { text-align: center; margin-bottom: 32px; }
     .header h1 { font-size: 2.2rem; font-weight: 700; color: #f59e0b; letter-spacing: 1px; margin-bottom: 8px; }
     .header p { color: #94a3b8; font-size: 1rem; }
@@ -198,7 +198,20 @@
         <div class="info-row"><strong>Tỏa hương:</strong> Toả xa ấn tượng</div>
         <div class="info-row"><strong>Hoàn cảnh:</strong> Sự kiện lớn, Gặp đối tác VIP, Mùa thu đông</div>
         <div class="footer-desc">Phong cách: Vương giả, Đượm nồng, Sang trọng</div>
-      </div>
+      </div><script>
+  // Tự động gắn nút Zalo cho tất cả các chai
+  const soZalo = "0567373012"; // 
+
+  document.querySelectorAll('.card-body').forEach(body => {
+    const nut = document.createElement('a');
+    nut.href = `https://zalo.me/${0567173012}`;
+    nut.target = '_blank';
+    nut.style.cssText = 'display:block; text-align:center; background:#0068ff; color:#fff; padding:10px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:12px;';
+    nut.innerText = '💬 Nhắn Zalo tư vấn';
+    body.appendChild(nut);
+  });
+</script>
+
     </div>
   </div>
 </body>
